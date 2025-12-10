@@ -96,8 +96,8 @@
   --db-search-bar-f: var(--c1-f);
   --taglist-panel: var(--c8);
   --taglist-panel-f: var(--c8-f);
-  --taglist-tag: var(--warning);
-  --taglist-tag-f: var(--warning-f);
+  --taglist-tag: var(--button);
+  --taglist-tag-f: var(--button-f);
 
   --grid-th: var(--c8);
   --grid-th-f: var(--c8-f);
