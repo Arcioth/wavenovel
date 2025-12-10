@@ -58,6 +58,8 @@ export default {
     }
 
 
+this.$root.updateSettings()
+
 
     // only for dev -- huh?? this is old I think
     if (localStorage.getItem("wmDev")) {

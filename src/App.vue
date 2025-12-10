@@ -278,6 +278,35 @@ export default {
       e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
       // Chrome requires returnValue to be set
       e.returnValue = "";
+    },
+        updateSettings() {
+        
+      // set the --root variables for each thingy
+      document.documentElement.style.setProperty('--pageEditor-align', this.$root.session.settings.documentprefs.align)
+      document.documentElement.style.setProperty('--pageEditor-fontsize', this.$root.session.settings.documentprefs.fontsize)
+      document.documentElement.style.setProperty('--pageEditor-lspacing', this.$root.session.settings.documentprefs.lspacing)
+      document.documentElement.style.setProperty('--pageEditor-indentation', this.$root.session.settings.documentprefs.indentation)
+      document.documentElement.style.setProperty('--pageEditor-pspacing', this.$root.session.settings.documentprefs.pspacing)
+      document.documentElement.style.setProperty('--pageEditor-page', this.$root.session.settings.documentprefs.page)
+      document.documentElement.style.setProperty('--pageEditor-font', this.$root.session.settings.documentprefs.font)
+      document.documentElement.style.setProperty('--pageEditor-color', this.$root.session.settings.documentprefs.color)
+      document.documentElement.style.setProperty('--pageEditor-bgcolor', this.$root.session.settings.documentprefs.bgcolor)
+
+      document.documentElement.style.setProperty('--pageEditor-h1align', this.$root.session.settings.documentprefs.h1align)
+      document.documentElement.style.setProperty('--pageEditor-h2align', this.$root.session.settings.documentprefs.h2align)
+      document.documentElement.style.setProperty('--pageEditor-h3align', this.$root.session.settings.documentprefs.h3align)
+      document.documentElement.style.setProperty('--pageEditor-h4align', this.$root.session.settings.documentprefs.h4align)
+
+
+      document.documentElement.style.setProperty('--distractionfree-font', this.$root.session.settings.documentprefs.distractionfree_font)
+      document.documentElement.style.setProperty('--distractionfree-fg', this.$root.session.settings.documentprefs.distractionfree_fg)
+      document.documentElement.style.setProperty('--distractionfree-bg', this.$root.session.settings.documentprefs.distractionfree_bg)
+
+      this.$root.UpdateRecord(
+        "Settings",
+        this.$root.session.settings.uuid,
+        this.$root.session.settings
+      )
     }
   },
   async mounted() {

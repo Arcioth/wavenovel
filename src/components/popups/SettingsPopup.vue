@@ -40,7 +40,7 @@
         <h2>{{ this.$root.setlang.settings.docprefs }}</h2>
 
         <label>{{ this.$root.setlang.settings.alignment }}</label>
-        <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.align" @change="updateSettings">
+        <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.align" @change="$root.updateSettings">
           <option value="left">{{ this.$root.setlang.settings.alignL }}</option>
           <option value="center"> {{ this.$root.setlang.settings.alignC }}</option>
           <option value="right"> {{ this.$root.setlang.settings.alignR }}</option>
@@ -48,7 +48,7 @@
         </select>
         <label>{{ this.$root.setlang.settings.fontsize }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.fontsize"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="1rem">{{ this.$root.setlang.settings.fontsize1 }}</option>
           <option value="1.5rem">{{ this.$root.setlang.settings.fontsize2 }}</option>
           <option value="2rem">{{ this.$root.setlang.settings.fontsize3 }}</option>
@@ -57,7 +57,7 @@
         </select>
         <label>{{ this.$root.setlang.settings.lineheight }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.lspacing"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="3rem">{{ this.$root.setlang.settings.lineheight1 }}</option>
           <option value="4rem"> {{ this.$root.setlang.settings.lineheight2 }}</option>
           <option value="5rem"> {{ this.$root.setlang.settings.lineheight3 }}</option>
@@ -65,13 +65,13 @@
         </select>
         <label>{{ this.$root.setlang.settings.paragraph }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.indentation"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="20px">{{ this.$root.setlang.settings.paragraphyes }}</option>
           <option value="0px">{{ this.$root.setlang.settings.paragraphno }}</option>
         </select>
         <label>{{ this.$root.setlang.settings.paragraphspacing }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.pspacing"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="20px"> {{ this.$root.setlang.settings.paragraphspacing1 }}</option>
           <option value="30px">{{ this.$root.setlang.settings.paragraphspacing2 }}</option>
           <option value="40px">{{ this.$root.setlang.settings.paragraphspacing3 }}</option>
@@ -79,7 +79,7 @@
           <option value="100px">{{ this.$root.setlang.settings.paragraphspacing5 }}</option>
         </select>
         <label>{{ this.$root.setlang.settings.pagewidth }}</label>
-        <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.page" @change="updateSettings">
+        <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.page" @change="$root.updateSettings">
           <option value="800px"> {{ this.$root.setlang.settings.pagestyle }}</option>
           <option value="100%"> {{ this.$root.setlang.settings.fullwidth }}</option>
         </select>
@@ -88,11 +88,11 @@
           <tr>
             <td>
               <label>{{ this.$root.setlang.settings.pagetext }}</label>
-              <input type="color" v-model="this.$root.session.settings.documentprefs.color" @change="updateSettings">
+              <input type="color" v-model="this.$root.session.settings.documentprefs.color" @change="$root.updateSettings">
             </td>
             <td>
               <label>{{ this.$root.setlang.settings.pagecolour }}</label>
-              <input type="color" v-model="this.$root.session.settings.documentprefs.bgcolor" @change="updateSettings">
+              <input type="color" v-model="this.$root.session.settings.documentprefs.bgcolor" @change="$root.updateSettings">
             </td>
           </tr>
           </tbody>
@@ -108,7 +108,7 @@
 
         <label>{{ this.$root.setlang.settings.h1align }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.h1align"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="left">{{ this.$root.setlang.settings.alignL }}</option>
           <option value="center"> {{ this.$root.setlang.settings.alignC }}</option>
           <option value="right"> {{ this.$root.setlang.settings.alignR }}</option>
@@ -117,7 +117,7 @@
 
         <label>{{ this.$root.setlang.settings.h2align }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.h2align"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="left">{{ this.$root.setlang.settings.alignL }}</option>
           <option value="center"> {{ this.$root.setlang.settings.alignC }}</option>
           <option value="right"> {{ this.$root.setlang.settings.alignR }}</option>
@@ -126,7 +126,7 @@
 
         <label>{{ this.$root.setlang.settings.h3align }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.h3align"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="left">{{ this.$root.setlang.settings.alignL }}</option>
           <option value="center"> {{ this.$root.setlang.settings.alignC }}</option>
           <option value="right"> {{ this.$root.setlang.settings.alignR }}</option>
@@ -135,7 +135,7 @@
 
         <label>{{ this.$root.setlang.settings.h4align }}</label>
         <select class="wavemaker-form" v-model="this.$root.session.settings.documentprefs.h4align"
-          @change="updateSettings">
+          @change="$root.updateSettings">
           <option value="left">{{ this.$root.setlang.settings.alignL }}</option>
           <option value="center"> {{ this.$root.setlang.settings.alignC }}</option>
           <option value="right"> {{ this.$root.setlang.settings.alignR }}</option>
@@ -161,12 +161,12 @@
             <td>
               <label>{{ this.$root.setlang.settings.typetext }}</label>
               <input type="color" v-model="this.$root.session.settings.documentprefs.distractionfree_fg"
-                @change="updateSettings" style=" width:30px; height:30px">
+                @change="$root.updateSettings" style=" width:30px; height:30px">
             </td>
             <td>
               <label>{{ this.$root.setlang.settings.typepage }}</label>
               <input type="color" v-model="this.$root.session.settings.documentprefs.distractionfree_bg"
-                @change="updateSettings" style=" width:30px; height:30px">
+                @change="$root.updateSettings" style=" width:30px; height:30px">
             </td>
             <td>
               <label>{{ this.$root.setlang.settings.typesound }}</label>
@@ -230,10 +230,10 @@ export default {
     async handleFontChange() {
       try {
         await this.loadGoogleFont(this.$root.session.settings.documentprefs.font)
-        this.updateSettings()
+        this.$root.updateSettings()
       } catch (error) {
         console.warn('Font loading failed:', error)
-        this.updateSettings()
+        this.$root.updateSettings()
       }
     },
     onDistractionFreeFontInput(event) {
@@ -243,10 +243,10 @@ export default {
     async handleDistractionFreeFontChange() {
       try {
         await this.loadGoogleFont(this.$root.session.settings.documentprefs.distractionfree_font)
-        this.updateSettings()
+        this.$root.updateSettings()
       } catch (error) {
         console.warn('Distraction-free font loading failed:', error)
-        this.updateSettings()
+        this.$root.updateSettings()
       }
     },
     setTheme(t) {
@@ -262,36 +262,9 @@ export default {
 
     resetSettings() {
       this.$root.session.settings.documentprefs = JSON.parse(JSON.stringify(this.$root.SettingsTemplate.documentprefs))
-      this.updateSettings()
+      this.$root.updateSettings()
     },
-    updateSettings() {
-      // set the --root variables for each thingy
-      document.documentElement.style.setProperty('--pageEditor-align', this.$root.session.settings.documentprefs.align)
-      document.documentElement.style.setProperty('--pageEditor-fontsize', this.$root.session.settings.documentprefs.fontsize)
-      document.documentElement.style.setProperty('--pageEditor-lspacing', this.$root.session.settings.documentprefs.lspacing)
-      document.documentElement.style.setProperty('--pageEditor-indentation', this.$root.session.settings.documentprefs.indentation)
-      document.documentElement.style.setProperty('--pageEditor-pspacing', this.$root.session.settings.documentprefs.pspacing)
-      document.documentElement.style.setProperty('--pageEditor-page', this.$root.session.settings.documentprefs.page)
-      document.documentElement.style.setProperty('--pageEditor-font', this.$root.session.settings.documentprefs.font)
-      document.documentElement.style.setProperty('--pageEditor-color', this.$root.session.settings.documentprefs.color)
-      document.documentElement.style.setProperty('--pageEditor-bgcolor', this.$root.session.settings.documentprefs.bgcolor)
 
-      document.documentElement.style.setProperty('--pageEditor-h1align', this.$root.session.settings.documentprefs.h1align)
-      document.documentElement.style.setProperty('--pageEditor-h2align', this.$root.session.settings.documentprefs.h2align)
-      document.documentElement.style.setProperty('--pageEditor-h3align', this.$root.session.settings.documentprefs.h3align)
-      document.documentElement.style.setProperty('--pageEditor-h4align', this.$root.session.settings.documentprefs.h4align)
-
-
-      document.documentElement.style.setProperty('--distractionfree-font', this.$root.session.settings.documentprefs.distractionfree_font)
-      document.documentElement.style.setProperty('--distractionfree-fg', this.$root.session.settings.documentprefs.distractionfree_fg)
-      document.documentElement.style.setProperty('--distractionfree-bg', this.$root.session.settings.documentprefs.distractionfree_bg)
-
-      this.$root.UpdateRecord(
-        "Settings",
-        this.$root.session.settings.uuid,
-        this.$root.session.settings
-      )
-    }
   },
   mounted() {
     console.log(this.$root.session.settings.documentprefs)
