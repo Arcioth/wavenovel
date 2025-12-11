@@ -212,15 +212,12 @@
 
             </div>
 
-            <!--
- <button @click="doComment()">
+            <button @click="addComment()" :class="{ 'is-active': editor.isActive('comment') }" title="Add Comment">
                 <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                     <path
                         d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M10,16V19.08L13.08,16H20V4H4V16H10Z" />
                 </svg>
             </button>
-
--->
 
             <button @click="wordcountToggle()" :title="this.$root.setlang.editor.wordcount">
 
@@ -243,6 +240,17 @@
         </div>
         <div class="wordcountdisplay" v-if="item">{{ item.wordcount }} / {{ this.$root.fullWordCount }} </div>
 
+        <div class="comment-modal-overlay" v-if="showCommentModal">
+            <div class="comment-modal">
+                <h3>Add Comment</h3>
+                <textarea v-model="commentText" placeholder="Enter your comment here..."></textarea>
+                <div class="comment-modal-buttons">
+                    <button @click="showCommentModal = false">Cancel</button>
+                    <button @click="saveComment">Save</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
   
@@ -253,6 +261,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Typography from "@tiptap/extension-typography";
 import Image from "@tiptap/extension-image";
 import Highlight from '@tiptap/extension-highlight'
+import { Comment } from "./extensions/Comment.js";
 export default {
     name: "NewPage",
     props: {
@@ -267,7 +276,9 @@ export default {
             editor: null,
             updateUUID: null,
             mypos: 0,
-            hilighter: false
+            hilighter: false,
+            showCommentModal: false,
+            commentText: ''
         };
     },
     methods: {
@@ -315,6 +326,16 @@ export default {
                 }
                 this.editor.chain().focus().setImage({ src: url }).run();
             }
+        },
+        addComment() {
+            this.commentText = '';
+            this.showCommentModal = true;
+        },
+        saveComment() {
+            if (this.commentText) {
+                this.editor.chain().focus().setComment({ commentId: this.commentText }).run();
+            }
+            this.showCommentModal = false;
         }
     },
     mounted() {
@@ -342,7 +363,7 @@ export default {
         });
 
         this.editor = new Editor({
-            extensions: [StarterKit, Typography, Image, Highlight.configure({ multicolor: true })],
+            extensions: [StarterKit, Typography, Image, Highlight.configure({ multicolor: true }), Comment],
             content: '',
             onTransaction: () => {
                 this.repositionEditor()
@@ -513,3 +534,52 @@ mark {
 }
 </style>
   
+
+<style scoped>
+.comment-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.comment-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment-modal h3 {
+    margin-top: 0;
+}
+
+.comment-modal textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.comment-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.comment-modal-buttons button {
+    width: auto;
+    padding: 5px 15px;
+    height: auto;
+}
+</style>

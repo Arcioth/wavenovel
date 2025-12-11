@@ -466,3 +466,38 @@ a {
   padding: 0px;
   padding-bottom: 5px;
 }
+span[data-comment-id] {
+  background-color: #eeeeee;
+  border-bottom: 2px solid #cccccc;
+  cursor: help;
+  position: relative;
+}
+
+span[data-comment-id]:hover::after {
+  content: attr(data-comment-id);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+span[data-comment-id]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #333;
+  margin-bottom: -10px;
+  z-index: 1000;
+}
