@@ -314,15 +314,32 @@ export default {
 
   -webkit-box-shadow: 3px 0px 5px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 3px 0px 5px 0px rgba(0, 0, 0, 0.2);
-  right: -260px;
+  right: -300px;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  z-index: 990;
+}
+
+.pinBtn {
+  position: absolute;
+  top: 0px;
+  left: -40px;
+  border: 0px;
+  background: none;
+  padding: 5px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
 }
 
 .menu:hover,
 .menu:focus,
 .rhspinned {
-  transform: translate3d(-260px, 0, 0);
+  transform: translate3d(-300px, 0, 0);
   animation-timing-function: 1s ease-in;
 }
 

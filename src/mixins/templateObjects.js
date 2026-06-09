@@ -21,7 +21,8 @@ const templateObjects = {
                     distractionfree_bg: this.dotrim(getComputedStyle(document.documentElement).getPropertyValue('--distractionfree-bg')),
                     distractionfree_fg: this.dotrim(getComputedStyle(document.documentElement).getPropertyValue('--distractionfree-fg')),
                     typesound: false,
-                    caretfocus: false
+                    caretfocus: false,
+                    spellcheck: false
                 }
             }
 

@@ -14,6 +14,8 @@
       <SettingsPopup v-if="$root.$data.popup.name === 'SettingsPopup'" />
       <GoogleDrive v-if="$root.$data.popup.name === 'GoogleDrive'" />
 <AiHelp v-if="$root.$data.popup.name === 'AiHelp'" />
+      <ExtensionsPopup v-if="$root.$data.popup.name === 'ExtensionsPopup'" />
+      <ThemePopup v-if="$root.$data.popup.name === 'ThemePopup'" />
 
       
     </div>
@@ -24,13 +26,27 @@ import ApiForm from '@/components/popups/ApiForm.vue'
 import SettingsPopup from '@/components/popups/SettingsPopup.vue'
 import GoogleDrive from '@/components/popups/GoogleDrive.vue'
 import AiHelp from '@/components/popups/AiHelp.vue'
+import ExtensionsPopup from '@/components/popups/ExtensionsPopup.vue'
+import ThemePopup from '@/components/popups/ThemePopup.vue'
+import { emit } from '@/plugins/events.js'
+
 export default {
   name: "PopupManager",
   components: {
     ApiForm,
     SettingsPopup,
     GoogleDrive,
-    AiHelp
+    AiHelp,
+    ExtensionsPopup,
+    ThemePopup
+  },
+  watch: {
+    '$root.$data.popup.name': {
+      handler(newVal) {
+        emit('popup:state', newVal);
+      },
+      immediate: true
+    }
   }
 }
 </script>

@@ -1,0 +1,68 @@
+/* Openify Themes Definitions */
+[data-theme="openify"] { --bg-base: #000000; --bg-sidebar: #000000; --bg-main: #121212; --bg-card: #181818; --bg-card-hover: #282828; --accent: #1db954; --text-main: #ffffff; --text-sub: #b3b3b3; }
+[data-theme="dark"] { --bg-base: #000000; --bg-sidebar: #000000; --bg-main: #000000; --bg-card: #0a0a0a; --bg-card-hover: #151515; --text-main: #ffffff; --text-sub: #b3b3b3; --accent: #1db954; }
+[data-theme="light"] { --bg-base: #f0f2f5; --bg-sidebar: #ffffff; --bg-main: #ffffff; --bg-card: #f8f9fa; --bg-card-hover: #e9ecef; --text-main: #121212; --text-sub: #6c757d; --accent: #1db954; }
+[data-theme="blue"] { --bg-base: #0a192f; --bg-sidebar: #0a192f; --bg-main: #112240; --bg-card: #1d2d50; --bg-card-hover: #233554; --text-main: #ccd6f6; --text-sub: #8892b0; --accent: #64ffda; }
+[data-theme="purple"] { --bg-base: #1a0b2e; --bg-sidebar: #1a0b2e; --bg-main: #240b36; --bg-card: #301b4d; --bg-card-hover: #3d2b5e; --text-main: #e0d1ff; --text-sub: #a38dbd; --accent: #c084fc; }
+[data-theme="red"] { --bg-base: #000000; --bg-sidebar: #000000; --bg-main: #120505; --bg-card: #1a0a0a; --bg-card-hover: #2a0f0f; --text-main: #ffcccc; --text-sub: #b38888; --accent: #ff4d4d; }
+[data-theme="gold"] { --bg-base: #0f0c08; --bg-sidebar: #0f0c08; --bg-main: #1a1612; --bg-card: #26211c; --bg-card-hover: #332c26; --text-main: #f5e6d3; --text-sub: #b3a086; --accent: #ffcc33; }
+[data-theme="cyberpunk"] { --bg-base: #000000; --bg-sidebar: #000000; --bg-main: #050505; --bg-card: #0d0d0d; --bg-card-hover: #151515; --text-main: #00ffcc; --text-sub: #ff00ff; --accent: #ff00ff; }
+[data-theme="glass"] { --bg-base: #e0e0e0; --bg-sidebar: rgba(255,255,255,0.4); --bg-main: rgba(255,255,255,0.2); --bg-card: rgba(255,255,255,0.3); --bg-card-hover: rgba(255,255,255,0.5); --text-main: #333; --text-sub: #666; --accent: #007aff; }
+[data-theme="terminal"] { --bg-base: #000; --bg-sidebar: #000; --bg-main: #000; --bg-card: #050505; --bg-card-hover: #111; --text-main: #0f0; --text-sub: #080; --accent: #0f0; }
+[data-theme="rgb"] { --bg-base: #050505; --bg-sidebar: #000; --bg-main: #0a0a0a; --bg-card: #111; --bg-card-hover: #1a1a1a; --accent: #fff; --text-main: #fff; --text-sub: #aaa; }
+[data-theme="pharoh"] { --bg-base: #1a120b; --bg-sidebar: #1a120b; --bg-main: #2d2013; --bg-card: #3e2c1e; --bg-card-hover: #4f3a2a; --text-main: #f5deb3; --text-sub: #b3a086; --accent: #d4af37; }
+[data-theme="turk"] { --bg-base: #8b0000; --bg-sidebar: #600; --bg-main: #a00; --bg-card: #b00; --bg-card-hover: #c00; --text-main: #fff; --text-sub: #fcc; --accent: #fff; }
+[data-theme="clouds"] { --bg-base: #f0f8ff; --bg-sidebar: #e1f5fe; --bg-main: #fff; --bg-card: #f5f5f5; --bg-card-hover: #eee; --text-main: #2f4f4f; --text-sub: #78909c; --accent: #03a9f4; }
+
+/* Mapping Openify themes to Wavemaker variables */
+html[data-theme] {
+  --window: var(--bg-base);
+  --window-f: var(--text-main);
+  
+  --paper: var(--bg-main);
+  --paper-f: var(--text-main);
+  
+  --card: var(--bg-card);
+  --card-f: var(--text-sub);
+  
+  --button: var(--bg-card-hover);
+  --button-f: var(--text-main);
+  --button-hover: var(--accent);
+  --button-hover-f: var(--bg-base);
+  
+  --display-window: var(--bg-card);
+  --display-window-f: var(--text-main);
+  
+  --top-toolbar: var(--bg-sidebar);
+  --top-toolbar-f: var(--text-main);
+  
+  --writer-side-panels: var(--bg-sidebar);
+  --writer-side-panels-f: var(--text-sub);
+  
+  --writer-side-nav: var(--bg-card);
+  --writer-side-nav-f: var(--text-sub);
+  
+  --writer-title-bar: var(--bg-sidebar);
+  --writer-title-bar-f: var(--text-main);
+  
+  --writer-button-bar: var(--bg-card);
+  --writer-button-bar-f: var(--text-main);
+  
+  --primary: var(--bg-card);
+  --primary-f: var(--text-main);
+  
+  --accent: var(--accent);
+  --accent-f: var(--bg-base);
+
+  /* Ensure page editor matches theme! */
+  --pageEditor-bgcolor: var(--bg-main);
+  --pageEditor-color: var(--text-main);
+  
+  --distractionfree-bg: var(--bg-base);
+  --distractionfree-fg: var(--text-sub);
+  
+  /* Scrollbars */
+  --webkit-scrollbar-button: var(--bg-base);
+  --webkit-scrollbar-thumb: var(--bg-card-hover);
+  --webkit-scrollbar-track: var(--bg-base);
+}

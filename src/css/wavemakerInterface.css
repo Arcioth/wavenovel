@@ -120,8 +120,8 @@ html {
 
 html,
 body {
-  background-color: var(--window);
-  color: var(--window-f);
+  background-color: var(--window) !important;
+  color: var(--window-f) !important;
   fill: var(--window-f);
   padding: 0px;
   margin: 0px;
@@ -184,11 +184,12 @@ a {
   background-color: var(--popup-block);
   color: var(--popup-block-f);
 
-  opacity: 0.93;
+  opacity: 0.4;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 999;
 }
 
 .wavemakerPopup {
@@ -206,6 +207,7 @@ a {
   margin: 0 auto;
   padding-bottom: 50px;
   overflow-y: auto;
+  z-index: 1000;
 }
 
 .wavemaker_welcome {
@@ -287,35 +289,48 @@ a {
   background-color: var(--button);
   color: var(--button-f);
   fill: var(--button-f);
-  border: 0px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
   outline: 0px;
-  height: 40px;
-  border-radius: 0px;
-  padding-left: 45px;
-  padding-right: 10px;
+  height: 48px;
+  padding-left: 48px;
+  padding-right: 16px;
   cursor: pointer;
   font-family: var(--sysfont);
-  border-radius: 5px;
+  border-radius: 12px;
   margin-top: 10px;
-  background: var(--primary);
-  fill: var(--button-hover-f) ;
-  color: var(--button-hover-f) ;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .interfaceBtn svg {
   position: absolute;
-  left: 15px;
-  top: 10px;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 20px;
   height: 20px;
+  transition: transform 0.3s ease;
 }
 
 .interfaceBtn:hover,
 .interfaceBtn:focus,
 .interfaceBtn:active {
-  background-color: var(--button-hover) !important;
-  color: var(--button-hover-f) !important;
-  fill: var(--button-hover-f) !important;
+  background-color: var(--button) !important;
+  color: var(--accent) !important;
+  fill: var(--accent) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--accent);
+  border-color: var(--accent) !important;
+}
+
+.interfaceBtn:hover svg {
+  transform: translateY(-50%) scale(1.1);
 }
 
 .deleteIconButton {

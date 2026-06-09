@@ -1,46 +1,31 @@
 <template>
   <div class="toolbox">
     <ProjectInfo v-if="!$root.session.selectedTool" />
-    <WriterMenu v-if="$root.session.selectedTool === 'writer'" />
-    <CardsDatabaseHome v-if="$root.session.selectedTool === 'cardsdatabase'" />
-    <PlanningBoardHome v-if="$root.session.selectedTool === 'planningboard'" />
-    <SnowFlake v-if="$root.session.selectedTool === 'snowflake'" />
-    <TimeLine v-if="$root.session.selectedTool === 'timeline'" />
-    <MindMapHome v-if="$root.session.selectedTool === 'mindmap'" />
-    <GridPlannerHome v-if="$root.session.selectedTool === 'gridplanner'" />
-
+    <template v-for="plugin in pluginsList" :key="plugin.id">
+      <component :is="plugin.component" v-if="$root.session.selectedTool === plugin.id" />
+    </template>
   </div>
-  <ToolBar />
+  <SlotRenderer name="global-overlay" />
 
 
   <DistractionFree v-if="$root.session.selectedTool === 'distractionfree'" />
 </template>
 
 <script>
-import ToolBar from "@/components/ToolBar.vue";
 import ProjectInfo from "@/components/project/ProjectInfo.vue";
-import WriterMenu from "@/components/writer/WriterMenu.vue";
-import CardsDatabaseHome from "@/components/cardsdatabase/CardsDatabaseHome.vue";
-import PlanningBoardHome from "@/components/planningboard/PlanningBoardMenu.vue";
-import SnowFlake from "@/components/snowflake/SnowFlake.vue";
-import TimeLine from "@/components/timeline/TimeLine.vue";
-import MindMapHome from "@/components/mindmap/MindMapHome.vue";
-import GridPlannerHome from "@/components/gridplanner/GridPlannerHome.vue";
 import DistractionFree from "@/components/distractionfree/Typewriter.vue";
+import { getPlugins } from "@/plugins/manager.js";
 
 export default {
   name: "StartApp",
   components: {
-    ToolBar,
     ProjectInfo,
-    WriterMenu,
-    PlanningBoardHome,
-    SnowFlake,
-    TimeLine,
-    MindMapHome,
-    CardsDatabaseHome,
-    GridPlannerHome,
     DistractionFree
+  },
+  computed: {
+    pluginsList() {
+      return Object.values(getPlugins()).filter(p => p.enabled);
+    }
   },
   methods: {},
   async mounted() {
@@ -75,8 +60,8 @@ this.$root.updateSettings()
 <style scoped>
 .toolbox {
   position: fixed;
-  top: 50px;
-  left: 0px;
+  top: 0px;
+  left: 20px;
   right: 0px;
   bottom: 0px;
   background-color: inherit;

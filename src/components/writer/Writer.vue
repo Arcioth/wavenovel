@@ -2,7 +2,7 @@
   <div class="writer" v-bind:class="
   [
     $root.lhspin ? 'lhspin' : '',
-    $root.rhspin ? 'rhspin' : ''
+    ($root.rhspin && isCardsEnabled) ? 'rhspin' : ''
   ]">
     <div v-if="!$root.session.writer.file">
       <div class="wavemaker_info_box" v-if="this.$root.session.writer.selected">
@@ -62,13 +62,13 @@
         <p>
           {{ this.$root.setlang.writer.intro }}
         </p>
-        <button @click="exportDoc(this.$root.session.writer.selected.files)" class="interfaceBtn">
+        <button @click="showExportModal = true" class="interfaceBtn">
 
           <svg viewBox="0 0 24 24">
             <path
               d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15.2,20H13.8L12,13.2L10.2,20H8.8L6.6,11H8.1L9.5,17.8L11.3,11H12.6L14.4,17.8L15.8,11H17.3L15.2,20M13,9V3.5L18.5,9H13Z" />
           </svg>
-          {{ this.$root.setlang.writer.docdownload }}</button>
+          Export Options</button>
 
         <BarChart />
       </div>
@@ -112,8 +112,10 @@
 
   </div>
 
-  <WriterRightSide v-if="this.$root.session.writer.file" :key="this.$root.session.writer.file.uuid" />
+  <WriterRightSide v-if="this.$root.session.writer.file && isCardsEnabled" :key="this.$root.session.writer.file.uuid" />
   <WriterLeftSide />
+  
+  <ExportModal v-if="showExportModal" :files="$root.session.writer.selected.files" @close="showExportModal = false" />
 </template>
 
 <script>
@@ -123,6 +125,8 @@ import WriterLeftSide from "./leftpanel/WriterLeftSide.vue";
 import WriterRightSide from "./rightpanel/WriterRightSide.vue";
 import PageEditor from "./PageEditor.vue";
 import PageBlock from "./PageBlock.vue";
+import ExportModal from "./ExportModal.vue";
+import { getPlugins } from '@/plugins/manager.js';
 
 export default {
   name: "WriterTool",
@@ -131,12 +135,20 @@ export default {
     WriterRightSide,
     PageEditor,
     PageBlock,
-    BarChart
+    BarChart,
+    ExportModal
   },
   data() {
     return {
       exportHTML: null,
-      exportObject: {}
+      exportObject: {},
+      showExportModal: false
+    }
+  },
+  computed: {
+    isCardsEnabled() {
+      const plugins = getPlugins();
+      return plugins['cards'] && plugins['cards'].enabled;
     }
   },
   methods: {

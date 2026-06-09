@@ -11,7 +11,6 @@
 
   <ImageManager v-if="$root.imagemanager" />
   <PopupManager />
-  <PWAPrompt />
   <Version3Import v-if="v3import" />
   <!--
   Hidden File open element
@@ -36,7 +35,6 @@ import Languages from "./lang.json";
 import CardModal from "@/components/universal/CardModal.vue"
 import ImageManager from "@/components/universal/ImageManager.vue"
 import Version3Import from "./utilitystuff/version3Importer.vue"
-import PWAPrompt from "@/components/PWAPrompt.vue"
 import { usePWA } from '@/composables/usePWA.js'
 import { useFontLoader } from '@/composables/useFontLoader.js'
 export default {
@@ -58,8 +56,7 @@ export default {
     Start,
     CardModal,
     ImageManager,
-    Version3Import,
-    PWAPrompt
+    Version3Import
   },
   watch: {
     // Watch for font changes and load Google Fonts dynamically
@@ -108,12 +105,6 @@ export default {
     return {
       myPackage,
       EditCardrefresh: null,
-      theme: "default",
-      themeList: [
-        { name: "Default Wavemaker", file: "wavemaker" },
-        { name: "Light Theme", file: "light" },
-        { name: "Blue Sky", file: "bluesky" }
-      ],
       lhspin: true,
       rhspin: true,
       navbar: false,
@@ -269,10 +260,7 @@ export default {
       }
       */
     },
-    switchTheme() {
-      document.getElementById("themeSwitch").href = "themes/" + this.theme + ".css";
-      localStorage.setItem("wmTheme", this.theme)
-    },
+
     unloadEvent(e) {
       // Cancel the event
       e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
@@ -289,8 +277,6 @@ export default {
       document.documentElement.style.setProperty('--pageEditor-pspacing', this.$root.session.settings.documentprefs.pspacing)
       document.documentElement.style.setProperty('--pageEditor-page', this.$root.session.settings.documentprefs.page)
       document.documentElement.style.setProperty('--pageEditor-font', this.$root.session.settings.documentprefs.font)
-      document.documentElement.style.setProperty('--pageEditor-color', this.$root.session.settings.documentprefs.color)
-      document.documentElement.style.setProperty('--pageEditor-bgcolor', this.$root.session.settings.documentprefs.bgcolor)
 
       document.documentElement.style.setProperty('--pageEditor-h1align', this.$root.session.settings.documentprefs.h1align)
       document.documentElement.style.setProperty('--pageEditor-h2align', this.$root.session.settings.documentprefs.h2align)
@@ -299,8 +285,6 @@ export default {
 
 
       document.documentElement.style.setProperty('--distractionfree-font', this.$root.session.settings.documentprefs.distractionfree_font)
-      document.documentElement.style.setProperty('--distractionfree-fg', this.$root.session.settings.documentprefs.distractionfree_fg)
-      document.documentElement.style.setProperty('--distractionfree-bg', this.$root.session.settings.documentprefs.distractionfree_bg)
 
       this.$root.UpdateRecord(
         "Settings",
@@ -314,10 +298,6 @@ export default {
     let settingsCheck = await this.$root.db.Settings.toArray()
     if (settingsCheck) {
       this.$root.session.settings = settingsCheck[0]
-    }
-    if (localStorage.getItem("wmTheme")) {
-      this.theme = localStorage.getItem("wmTheme")
-      this.switchTheme()
     }
 
     if (localStorage.getItem("wmLang") && localStorage.getItem("wmLang") != "undefined") {

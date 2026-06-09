@@ -58,7 +58,7 @@
     </div>
 
     <div class="addbar">
-      <button @click="addNode('folder')">
+      <button v-if="!isWebNovelMode" @click="addNode('folder')" title="Add Chapter">
         <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
           <path
             d="M13 19C13 19.34 13.04 19.67 13.09 20H4C2.9 20 2 19.11 2 18V6C2 4.89 2.89 4 4 4H10L12 6H20C21.1 6 22 6.89 22 8V13.81C21.12 13.3 20.1 13 19 13C15.69 13 13 15.69 13 19M20 18V15H18V18H15V20H18V23H20V20H23V18H20Z"
@@ -66,7 +66,7 @@
         </svg>
       </button>
 
-      <button @click="addNode('file')" style="left: 50px">
+      <button @click="addNode('file')" :style="isWebNovelMode ? 'left: 0px' : 'left: 50px'" :title="isWebNovelMode ? 'Add Chapter' : 'Add Scene'">
         <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
           <path
             d="M14 2H6C4.89 2 4 2.89 4 4V20C4 21.11 4.89 22 6 22H13.81C13.28 21.09 13 20.05 13 19C13 18.67 13.03 18.33 13.08 18H6V16H13.81C14.27 15.2 14.91 14.5 15.68 14H6V12H18V13.08C18.33 13.03 18.67 13 19 13S19.67 13.03 20 13.08V8L14 2M13 9V3.5L18.5 9H13M18 15V18H15V20H18V23H20V20H23V18H20V15H18Z"
@@ -79,6 +79,8 @@
 
 <script>
 import WriterNode from "./WriterNode.vue";
+import { getPlugins } from "@/plugins/manager.js";
+
 export default {
   name: "WriterLeftSide",
   components: {
@@ -149,51 +151,62 @@ export default {
 
     async addNode(type) {
       let obj = null;
+      let WriterNewObj = JSON.parse(
+        JSON.stringify(this.$root.session.writer.selected)
+      );
+
+      if (type === "folder") {
+        obj = JSON.parse(JSON.stringify(this.defaultFolderStructure));
+        obj.uuid = this.$root.uuid();
+        
+        // Auto increment chapter
+        let chapterCount = WriterNewObj.files.filter(f => f.type === 'folder').length;
+        obj.title = "Chapter " + (chapterCount + 1);
+
+        WriterNewObj.files.push(obj);
+        this.$root.UpdateRecord("Writer", WriterNewObj.uuid, WriterNewObj);
+        return;
+      }
+
       if (type === "file") {
         obj = JSON.parse(JSON.stringify(this.defaultFileStructure));
         obj.uuid = this.$root.uuid();
-        // create the new file first!!
         let file = {};
-        file.title = this.$root.setlang.writer.newfile;
+        file.title = this.isWebNovelMode ? "New Chapter" : "New Scene";
         file.writerid = this.$root.session.writer.selected.uuid;
         file.uuid = obj.uuid;
         file.content = "";
         file.notes = [];
-        // we need to create a new file here
         await this.$root.AddRecord("Files", file);
-      }
-      if (type === "folder") {
-        obj = JSON.parse(JSON.stringify(this.defaultFolderStructure));
-        obj.uuid = this.$root.uuid();
-      }
 
-      let WriterNewObj = JSON.parse(
-        JSON.stringify(this.$root.session.writer.selected)
-      );
-      console.log("WriterNewObj", WriterNewObj);
-      if (!this.$root.session.writer.file) {
-        WriterNewObj.files.push(obj);
-      } else {
-        if (this.$root.session.writer.file.type === "folder") {
-          let folder = this.searchForFolder(
-            this.$root.session.writer.file.uuid,
-            WriterNewObj.files
-          );
-          console.log("folder", folder);
-          if (folder) {
-            folder.children.push(obj);
+        if (!this.$root.session.writer.file) {
+          let firstFolder = WriterNewObj.files.find(f => f.type === 'folder');
+          if (firstFolder) {
+            firstFolder.children.push(obj);
+          } else {
+            WriterNewObj.files.push(obj);
           }
         } else {
-          let found = this.searchForFileandParent(
-            this.$root.session.writer.file,
-            WriterNewObj.files
-          );
-          if (found) {
-            found.parent.splice(found.index + 1, 0, obj);
+          if (this.$root.session.writer.file.type === "folder") {
+            let folder = this.searchForFolder(
+              this.$root.session.writer.file.uuid,
+              WriterNewObj.files
+            );
+            if (folder) {
+              folder.children.push(obj);
+            }
+          } else {
+            let found = this.searchForFileandParent(
+              this.$root.session.writer.file,
+              WriterNewObj.files
+            );
+            if (found) {
+              found.parent.splice(found.index + 1, 0, obj);
+            }
           }
         }
+        this.$root.UpdateRecord("Writer", WriterNewObj.uuid, WriterNewObj);
       }
-      this.$root.UpdateRecord("Writer", WriterNewObj.uuid, WriterNewObj);
     },
     async updateDatabase() {
       //      this.$root.session.writer.selected.windowid = this.$root.windowID
@@ -210,6 +223,10 @@ console.log(
     },
   },
   computed: {
+    isWebNovelMode() {
+      const plugins = getPlugins();
+      return plugins['webnovel'] && plugins['webnovel'].enabled;
+    },
     dragOptions() {
       return {
         animation: 200,

@@ -252,7 +252,9 @@ import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Typography from "@tiptap/extension-typography";
 import Image from "@tiptap/extension-image";
-import Highlight from '@tiptap/extension-highlight'
+import Highlight from '@tiptap/extension-highlight';
+import Mention from '@tiptap/extension-mention';
+import suggestion from './suggestion.js';
 export default {
     name: "NewPage",
     props: {
@@ -342,7 +344,23 @@ export default {
         });
 
         this.editor = new Editor({
-            extensions: [StarterKit, Typography, Image, Highlight.configure({ multicolor: true })],
+            extensions: [
+                StarterKit, 
+                Typography, 
+                Image, 
+                Highlight.configure({ multicolor: true }),
+                Mention.configure({
+                    HTMLAttributes: {
+                        class: 'mention',
+                    },
+                    suggestion,
+                })
+            ],
+            editorProps: {
+                attributes: {
+                    spellcheck: this.$root.session.settings.documentprefs.spellcheck ? 'true' : 'false'
+                }
+            },
             content: '',
             onTransaction: () => {
                 this.repositionEditor()
@@ -498,7 +516,12 @@ mark {
     box-decoration-break: clone;
 }
 
-
+.mention {
+    color: var(--accent-f);
+    background-color: var(--accent);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.3rem;
+}
 
 .body-blue {
     color: blue;
