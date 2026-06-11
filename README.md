@@ -1,6 +1,6 @@
 # Wavenovel
 
-I wanted to make a custom version of wavemaker cards v4 as it was "lacking" in some places such as the UI in my case and decided to take this approach. Its fairly an upgrade to wacemaker but I plan on improving this further by adding zen mode and image support.
+I wanted to make a custom version of wavemaker cards v4 as it was "lacking" in some places such as the UI in my case and decided to take this approach. Its honestly mostly an UI upgrade to wavemaker 4 but I plan on improving this further by adding stuff like zen mode and image support.
 
 A beautiful, extensible, and powerful novel writing software.  
 Wavenovel is a modernized and significantly upgraded fork of the acclaimed [Wavemaker-v4](https://github.com/wavemakercards/wavemaker-v4), engineered to provide a richer, more customizable writing experience.
